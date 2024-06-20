@@ -5,32 +5,16 @@ const categoriesUrl = 'http://localhost:5678/api/categories';
 // Déclarer une variable globale pour stocker les figures une fois récupérées
 let figures = [];
 
-// Fonction pour afficher les travaux filtrés dans la galerie en fonction de la catégorie sélectionnée
-function displayWorksByCategory(category) {
-    figures.forEach(figure => {
-        const figureCategory = figure.dataset.category;
-
-        if (category === 'Tous' || figureCategory === category) {
-            figure.classList.remove('hidden');
-        } else {
-            figure.classList.add('hidden');
-        }
-    });
-}
 
 // Fonction principale pour charger les catégories, initialiser les filtres et afficher les travaux
 async function loadCategoriesAndWorks() {
     try {
         const categories = await fetchCategories(); // Récupération des catégories depuis l'API
         initFilterButtons(categories); // Initialisation des boutons de filtre avec les catégories récupérées
-
         const works = await fetchWorks(); // Récupération des travaux depuis l'API
         displayWorks(works); // Affichage initial des travaux
         displayWorksByCategory('Tous'); // Affichage initial de tous les travaux
-
-    } 
-    
-    catch (error) {
+    } catch (error) {
         console.error('Erreur lors du chargement initial:', error);
     }
 }
@@ -61,7 +45,25 @@ function initFilterButtons(categories) {
     } else {
         console.error('Aucun élément <h2> trouvé dans la section avec l\'ID "portfolio".');
     }
+
+    // Sélectionner toutes les figures une fois pour toutes après récupération des travaux
+    const gallery = document.querySelector('.gallery');
+    figures = Array.from(gallery.querySelectorAll('figure'));
 }
+
+// Fonction pour afficher les travaux filtrés dans la galerie en fonction de la catégorie sélectionnée
+function displayWorksByCategory(category) {
+    figures.forEach(figure => {
+        const figureCategory = figure.dataset.category;
+
+        if (category === 'Tous' || figureCategory === category) {
+            figure.classList.remove('hidden');
+        } else {
+            figure.classList.add('hidden');
+        }
+    });
+}
+
 
 // Fonction pour créer un bouton de filtre avec le texte spécifié
 function createFilterButton(category) {
@@ -106,25 +108,30 @@ async function fetchCategories() {
 // Fonction pour afficher les travaux dans la galerie
 function displayWorks(works) {
     const gallery = document.querySelector('.gallery');
-    gallery.innerHTML = ''; // Vider la galerie avant d'ajouter les nouveaux éléments
+    
+    // Vider la liste globale des figures avant de la remplir à nouveau
+    figures = [];
 
-    works.forEach(work => {
-        const figure = document.createElement('figure');
-        figure.dataset.workId = work.id;
-        figure.dataset.category = work.category.name;
+    // Ajouter dynamiquement les attributs data-work-id et data-category aux figures existantes
+    works.forEach((work, index) => {
+        const figure = gallery.children[index];
+        if (figure) {
+            figure.dataset.workId = work.id;
+            figure.dataset.category = work.category.name;
 
-        const img = document.createElement('img');
-        img.src = work.imageUrl;
-        img.alt = work.title;
+            const img = figure.querySelector('img');
+            if (img) {
+                img.src = work.imageUrl;
+                img.alt = work.title;
+            }
 
-        const figcaption = document.createElement('figcaption');
-        figcaption.textContent = work.title;
+            const figcaption = figure.querySelector('figcaption');
+            if (figcaption) {
+                figcaption.textContent = work.title;
+            }
 
-        figure.appendChild(img);
-        figure.appendChild(figcaption);
-        gallery.appendChild(figure);
-
-        figures.push(figure); // Ajouter la figure à la liste globale
+            figures.push(figure); // Ajouter la figure à la liste globale
+        } 
     });
 }
 
