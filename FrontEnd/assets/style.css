@@ -90,6 +90,7 @@ h2{
 	justify-content: center;
 	gap: 15px;
 	margin-bottom: 50px;
+	cursor: pointer;
 }
 button{
 	font-family: 'Syne';
@@ -102,7 +103,13 @@ button{
 	height: 37px;
 	width: auto;
 	background-color: white;
-	
+}
+button:hover{
+	background-color: #1D6154;
+	color: white;
+}
+.hidden{
+	display: none;
 }
 nav ul {
 	display: flex;
