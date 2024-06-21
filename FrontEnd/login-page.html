@@ -8,7 +8,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="./style_connexion.css">
+	<link rel="stylesheet" href="./login-style.css">
 	
 </head>
 <body>
@@ -24,25 +24,24 @@
 	</nav>
 </header>
 <main>
-    <h2>Log In</h2>
-
-    <form action="/login" method="post">
-        <div>
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Mot de passe:</label><br>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit" class="button">Se Connecter</button>
-        </div>
-        <div>
-            <button type="submit" class="button1">Mot de passe oublier</button>
-        </div>
-    </form>
-
+    <section>
+       <form action="/login" method="post">
+		 <h2>Log In</h2>
+          <div>
+             <label for="email">Email:</label><br>
+             <input type="email" id="email" name="email" required>
+          </div>
+          <div>
+             <label for="password">Mot de passe:</label><br>
+             <input type="password" id="password" name="password" required>
+          </div>
+          <div class="button-login">
+             <button type="submit" class="button">Se Connecter</button>
+        
+             <button type="submit" class="button1">Mot de passe oublier</button>
+          </div>
+      </form>
+  </section>
 </main>
 
 <footer>

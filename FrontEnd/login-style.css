@@ -57,15 +57,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0;
-    
-    width: 1140px;
      height: 42px;
-
-     position: absolute;
-    top: 50px;
-    left: 150px;
-
-
 }
 h1{
 	display: flex;
@@ -77,38 +69,41 @@ h1{
 }
 h2 {
     width: 100px;
-height: 36px;
-position: absolute;
-top: 242px;
-left: 669px;
-
-font-family: Syne;
-font-size: 30px;
-font-weight: 700;
-line-height: 36px;
-text-align: center;
-
-color: #1D6154;
+   height: 36px;
+   
+   font-family: Syne;
+   font-size: 30px;
+   font-weight: 700;
+   line-height: 36px;
+   text-align: center;
+   margin: auto;
+   padding-bottom: 30px;
+   color: #1D6154;
 
 }
+section{
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
+}
 form{
-    position: absolute;
-    top: 338px;
-    left: 530px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
 }
 label{
     width: 46px;
-height: 16px;
-top: 315px;
-left: 530px;
+    height: 16px;
+    top: 315px;
+    left: 530px;
 
-font-family: Work Sans;
-font-size: 14px;
-font-weight: 500;
-line-height: 16.42px;
-text-align: left;
+   font-family: Work Sans;
+   font-size: 14px;
+   font-weight: 500;
+   line-height: 16.42px;
+   text-align: left;
 
-color: #3D3D3D;
+   color: #3D3D3D; 
 }
 input{
     width: 379px;
@@ -122,25 +117,30 @@ color: #FFFFFF;
 .button {
     width: 179px;
   height: 36px;
-  top: 529px;
-  left: 630px;
   border: none;
   border-radius: 60px;
   color: #FFFFFF;
   background-color: #1D6154;
 }
+.button-login{
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
 .button1{
     width: 179px;
   height: 16px;
-  top: 593px;
-  left: 651px;
   border: none;
   font-family: Work Sans;
   font-size: 14px;
- font-weight: 500;
- line-height: 16.42px;
+  font-weight: 500;
+  line-height: 16.42px;
   text-align: left;
   color: #3D3D3D;
+  background: none;
+  padding-left: 16px;
+  text-decoration: underline;
 }
 h1 > span {
 	font-family: 'Work Sans';
@@ -176,14 +176,14 @@ footer{
 }
 .note-footer{
     width: 119px;
-height: 16px;
-top: 24px;
-margin-left: 1000px;
-font-family: Work Sans;
-font-size: 14px;
-font-weight: 300;
-line-height: 16.42px;
-color: black;
+    height: 16px;
+    top: 24px;
+    margin-left: 1000px;
+    font-family: Work Sans;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+   color: black;
 
 }
 

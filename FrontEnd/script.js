@@ -11,6 +11,7 @@ async function loadCategoriesAndWorks() {
     try {
         const categories = await fetchCategories(); // Récupération des catégories depuis l'API
         initFilterButtons(categories); // Initialisation des boutons de filtre avec les catégories récupérées
+        
         const works = await fetchWorks(); // Récupération des travaux depuis l'API
         displayWorks(works); // Affichage initial des travaux
         displayWorksByCategory('Tous'); // Affichage initial de tous les travaux
