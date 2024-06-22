@@ -107,12 +107,9 @@ label{
 }
 input{
     width: 379px;
-height: 51px;
-top: 338px;
-left: 530px;
-border: none;
+   height: 51px;
+   border: none;
 
-color: #FFFFFF;
 }
 .button {
     width: 179px;
@@ -127,6 +124,7 @@ color: #FFFFFF;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+	padding-top: 10px;
 }
 .button1{
     width: 179px;
