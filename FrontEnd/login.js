@@ -50,7 +50,7 @@ loginForm.addEventListener('submit', async function(event) {
                 localStorage.setItem('token', responseData.token);
 
                 // Rediriger vers index.html ou toute autre page souhaitée
-                window.location.href = "/index.html"; // Adapter le chemin selon votre structure
+                window.location.href = "/homepage.html"; // Adapter le chemin selon votre structure
             } else {
                 // Afficher un message d'erreur générique
                 alert("Email ou mot de passe incorrect.");

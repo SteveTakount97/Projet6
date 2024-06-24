@@ -69,6 +69,7 @@ function displayWorksByCategory(category) {
 // Fonction pour créer un bouton de filtre avec le texte spécifié
 function createFilterButton(category) {
     const button = document.createElement('button');
+    button.classList.add('btn-filtre');
     button.textContent = category;
     return button;
 }
