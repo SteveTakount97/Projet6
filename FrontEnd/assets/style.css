@@ -165,7 +165,7 @@ a{
     margin: 5% auto; 
 	padding: 50px;
     border: 1px solid #888;
-    width: 600px; 
+    width: 500px; 
 	height: 550px;
 }
 
@@ -185,10 +185,10 @@ a{
 
 .addpicture{
 	position: absolute;
-	bottom: 80px;
+	bottom: 20px;
 	display: flex;
 	justify-content: center;
-	width: 89%;
+	width: 70%;
 }
 .textbtn{
 	width: 237px;
@@ -199,10 +199,28 @@ a{
 	color: white;
 }
 #photoForm{
-	height: 400px;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 20px;
+	margin-left: 60px;
+	gap: 10px;
+	border-bottom: #1D6154 2px solid;
+	padding-bottom: 100px;
+}
+.img-container {
+    position: relative;
+    display: inline-block;
+	height: 90px;
+	
+   
+}
+
+.delete-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+	color: white;
+	background-color: black;
+	z-index: 10; /* Assurez-vous que le bouton est au-dessus de l'image */
 }
 /* Fin du code*/
 nav li {
