@@ -5,7 +5,6 @@ const categoriesUrl = 'http://localhost:5678/api/categories';
 // Déclarer une variable globale pour stocker les figures une fois récupérées
 let figures = [];
 
-
 // Fonction principale pour charger les catégories, initialiser les filtres et afficher les travaux
 async function loadCategoriesAndWorks() {
     try {
@@ -14,7 +13,6 @@ async function loadCategoriesAndWorks() {
         
         const works = await fetchWorks(); // Récupération des travaux depuis l'API
         displayWorks(works); // Affichage initial des travaux
-        displayWorksByCategory('Tous'); // Affichage initial de tous les travaux
     } catch (error) {
         console.error('Erreur lors du chargement initial:', error);
     }
@@ -46,10 +44,44 @@ function initFilterButtons(categories) {
     } else {
         console.error('Aucun élément <h2> trouvé dans la section avec l\'ID "portfolio".');
     }
+}
 
-    // Sélectionner toutes les figures une fois pour toutes après récupération des travaux
-    const gallery = document.querySelector('.gallery');
-    figures = Array.from(gallery.querySelectorAll('figure'));
+// Fonction pour afficher les travaux dans la galerie
+function displayWorks(works) {
+    const gallery = document.getElementById('gallery');
+    
+    // Vider la galerie avant de la remplir à nouveau
+    gallery.innerHTML = '';
+    
+    // Vider la liste globale des figures avant de la remplir à nouveau
+    figures = [];
+
+    // Ajouter dynamiquement les figures et leurs enfants à la galerie
+    works.forEach((work) => {
+        // Créer la balise figure
+        const figure = document.createElement('figure');
+        figure.dataset.workId = work.id;
+        figure.dataset.category = work.category.name;
+
+        // Créer la balise img
+        const img = document.createElement('img');
+        img.src = work.imageUrl;
+        img.alt = work.title;
+
+        // Créer la balise figcaption
+        const figcaption = document.createElement('figcaption');
+        figcaption.textContent = work.title;
+
+        // Ajouter img et figcaption à figure
+        figure.appendChild(img);
+        figure.appendChild(figcaption);
+
+        // Ajouter figure à la galerie
+        gallery.appendChild(figure);
+
+        // Ajouter la figure à la liste globale
+        figures.push(figure);
+    });
 }
 
 // Fonction pour afficher les travaux filtrés dans la galerie en fonction de la catégorie sélectionnée
@@ -64,7 +96,6 @@ function displayWorksByCategory(category) {
         }
     });
 }
-
 
 // Fonction pour créer un bouton de filtre avec le texte spécifié
 function createFilterButton(category) {
@@ -105,36 +136,6 @@ async function fetchCategories() {
         console.error('Erreur lors de la récupération des catégories:', error);
         return [];
     }
-}
-
-// Fonction pour afficher les travaux dans la galerie
-function displayWorks(works) {
-    const gallery = document.querySelector('.gallery');
-    
-    // Vider la liste globale des figures avant de la remplir à nouveau
-    figures = [];
-
-    // Ajouter dynamiquement les attributs data-work-id et data-category aux figures existantes
-    works.forEach((work, index) => {
-        const figure = gallery.children[index];
-        if (figure) {
-            figure.dataset.workId = work.id;
-            figure.dataset.category = work.category.name;
-
-            const img = figure.querySelector('img');
-            if (img) {
-                img.src = work.imageUrl;
-                img.alt = work.title;
-            }
-
-            const figcaption = figure.querySelector('figcaption');
-            if (figcaption) {
-                figcaption.textContent = work.title;
-            }
-
-            figures.push(figure); // Ajouter la figure à la liste globale
-        } 
-    });
 }
 
 // Appeler la fonction principale pour démarrer le chargement initial
