@@ -167,6 +167,7 @@ a{
     border: 1px solid #888;
     width: 500px; 
 	height: 550px;
+	z-index: 10000; /* Assure que le contenu modal est au-dessus de l'arrière-plan */
 }
 
 .close {
@@ -222,7 +223,94 @@ a{
 	background-color: black;
 	z-index: 10; /* Assurez-vous que le bouton est au-dessus de l'image */
 }
-/* Fin du code*/
+.page {
+    display: none; /* Cachée par défaut */
+}
+
+.page.active {
+    display: block; /* Affichée lorsque active */
+}
+.flech-back{
+	float: left;
+	position: absolute;
+    top: 60px;
+}
+.containerform{
+	display: grid;
+	grid-template-rows: 150px 100px 100px;
+    border-bottom: #B3B3B3 2px solid;
+    padding-bottom: 80px;
+}
+.addprojet{
+	margin-top: 20px;
+	width: 237px;
+	background-color: #A7A7A7;
+    height: 36px;
+    border-radius: 30px;
+    border: 1px solid #A7A7A7;
+}
+.addprojet-btn{
+	display: flex;
+	justify-content: center;
+}
+#addPhotoForm{
+	width: 420px;
+	margin: auto;
+}
+.text-titre{
+	width: 420px;
+	height: 60px;
+	margin-top: 7px;
+	border: 1px solid white;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+}
+.image-form{
+	background-color: #E8F1F6;
+}
+#fileInput{
+	display: none;
+}
+
+#uploadbutton{
+	display: flex;
+	margin: auto;
+    width: 173px;
+    height: 36px;
+	color: #1D6154;
+	background-color: #CBD6DC;
+	border-radius: 30px;
+}
+.text-uploadbutton{
+	padding-left: 35px;
+    padding-top: 5px;
+}
+.img-uploadbutton{
+	display: flex;
+	margin: auto;
+}
+.image-container {
+    position: relative;
+    width: 100px; /* Ajustez la largeur et la hauteur selon vos besoins */
+    height: 50px; /* Ajustez la largeur et la hauteur selon vos besoins */
+	display: flex;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+option{
+	width: 400px;
+}
+
+/* Fin du code modale*/
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;

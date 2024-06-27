@@ -16,8 +16,6 @@ loginForm.addEventListener('submit', async function(event) {
 
     console.log(formData);
 
-    // Fonction de délai d'attente (facultatif)
-    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     const sendData = async (formData) => {
         const url = "http://localhost:5678/api/users/login";
@@ -29,8 +27,6 @@ loginForm.addEventListener('submit', async function(event) {
             body: JSON.stringify(formData),
         };
         try {
-            // Ajout d'un délai d'attente de 1 seconde (facultatif)
-            await delay(1000);
 
             const response = await fetch(url, options);
             console.log(response);

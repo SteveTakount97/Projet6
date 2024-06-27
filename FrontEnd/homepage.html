@@ -40,14 +40,59 @@
         <!-- Modale -->
        <div id="myModal" class="modal">
           <div class="modal-content">
+			<!-- Page 1 : Galerie existante -->
+			<div id="page1" class="page">
             <img src="assets/icons/xmark.png" alt="btnx" class="close">
             <h2>Galery photo</h2>
-            <form id="photoForm">
-
+           
+            <div id="photoForm" class="photo-form">
                 <div class="addpicture">
-					<button type="submit" class="textbtn">Ajouter une photo</button>
+                    <button id="addPhotoButton" class="textbtn">Ajouter une photo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2 : Formulaire pour ajouter une photo -->
+        <div id="page2" class="page">
+            <form id="addPhotoForm" enctype="multipart/form-data">
+				<h2>Ajout Photo</h2>         
+				       <!-- Icône de flèche back pour revenir à la page 1 -->
+                <div class="back-button-container">
+                    <button type="button" id="backToPage1" class="flech-back"><i class="fas fa-arrow-left"></i></button>
+                </div>
+				<div class="containerform" id="containerform">
+                <div class="form-group image-form">
+					<div class="image-container">
+						<img src="/assets/icons/picture-svgrep.png" class="img-uploadbutton" id="uploadPlaceholder">
+						<img id="previewImage" src="" alt="Aperçu de l'image" style="display: none;">
 					</div>
+                    <button id="uploadbutton" type="button"><p class="text-uploadbutton">  + Ajouter photo </p></button>
+                    <input type="file" id="fileInput" name="image" accept="image/*" >
+                </div>
+				<div class="form-group">
+                    <label for="projectName">Titre :</label><br>
+                    <input type="text" id="projectName" name="projectName" class="text-titre"  required>
+                </div>
+                <div class="form-category">
+                    <label for="category">Catégorie :</label><br>
+                    <select id="category" name="category" class="text-titre"  required>
+						<option>Objets</option>
+						<option>Appartements</option>
+						<option>Hotels & restaurants</option>
+						<option>Tous</option>
+                        
+                    </select>
+                </div> 
+            
+				</div>
+				<div class="addprojet-btn">
+					<button type="submit" class="addprojet">Ajouter</button>
+				</div>
             </form>
+			
+			
+        </div>
+			
           </div>
        </div>
        <script src="modale.js"></script>
