@@ -9,7 +9,10 @@ let figures = [];
 async function loadCategoriesAndWorks() {
     try {
         const categories = await fetchCategories(); // Récupération des catégories depuis l'API
-        initFilterButtons(categories); // Initialisation des boutons de filtre avec les catégories récupérées
+        const filterContainer = document.getElementById('filtre-container'); // Création de filterContainer
+       
+
+        initFilterButtons(categories, filterContainer); // Initialisation des boutons de filtre avec les catégories récupérées
         
         const works = await fetchWorks(); // Récupération des travaux depuis l'API
         displayWorks(works); // Affichage initial des travaux
@@ -19,10 +22,8 @@ async function loadCategoriesAndWorks() {
 }
 
 // Fonction pour initialiser les boutons de filtre avec les catégories récupérées
-function initFilterButtons(categories) {
+function initFilterButtons(categories, filterContainer) {
     const uniqueCategories = new Set(categories.map(category => category.name));
-    const filterContainer = document.createElement('div');
-    filterContainer.classList.add('filtre');
 
     const allButton = createFilterButton('Tous');
     filterContainer.appendChild(allButton);
@@ -139,5 +140,5 @@ async function fetchCategories() {
     }
 }
 
-// Appeler la fonction principale pour démarrer le chargement initial
+// Appeler la fonction principale pour démarrer le chargement initial une fois que le DOM est chargé
 document.addEventListener('DOMContentLoaded', loadCategoriesAndWorks);
