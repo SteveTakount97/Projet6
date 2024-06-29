@@ -102,6 +102,7 @@ function createFilterButton(category) {
     const button = document.createElement('button');
     button.classList.add('btn-filtre');
     button.textContent = category;
+    
     return button;
 }
 

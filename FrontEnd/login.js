@@ -16,7 +16,6 @@ loginForm.addEventListener('submit', async function(event) {
 
     console.log(formData);
 
-
     const sendData = async (formData) => {
         const url = "http://localhost:5678/api/users/login";
         const options = {
@@ -27,7 +26,6 @@ loginForm.addEventListener('submit', async function(event) {
             body: JSON.stringify(formData),
         };
         try {
-
             const response = await fetch(url, options);
             console.log(response);
             if (!response.ok) {
@@ -35,28 +33,55 @@ loginForm.addEventListener('submit', async function(event) {
             }
             const responseData = await response.json();
             console.log("Réponse du serveur :", responseData);
-            
+
             // Vérifier si la réponse contient un message de succès ou d'erreur
             if (responseData.userId && responseData.token) {
                 // Afficher un message de connexion réussie
                 alert("Connexion réussie !");
 
-                // Stocker le userId et le token dans localStorage ou gérer autrement
+                // Stocker le userId et le token dans localStorage
                 localStorage.setItem('userId', responseData.userId);
                 localStorage.setItem('token', responseData.token);
 
-                // Rediriger vers index.html ou toute autre page souhaitée
-                window.location.href = "/homepage.html"; // Adapter le chemin selon votre structure
+                // Vérifier le token
+                await checkToken(responseData.token);
+
             } else {
                 // Afficher un message d'erreur générique
                 alert("Email ou mot de passe incorrect.");
             }
-            
+
         } catch (error) {
             alert(error.message); // Afficher l'erreur en cas de problème
         }
     };
-    
+
     // Appel de la fonction sendData avec formData en argument
     sendData(formData);
 });
+
+async function checkToken(token) {
+    try {
+        const response = await fetch('http://localhost:5678/api/works', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to verify token');
+        }
+
+        // Token vérifié avec succès
+        alert('Token vérifié avec succès. Vous pouvez créer un work. Vous êtes connecter en tant que administrateur');
+
+        // Rediriger vers index.html
+        window.location.href = '/index.html';
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Erreur lors de la vérification du token. Veuillez réessayer plus tard.');
+    }
+}
