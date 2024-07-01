@@ -48,7 +48,7 @@ function initFilterButtons(categories, filterContainer) {
 }
 
 // Fonction pour afficher les travaux dans la galerie
-function displayWorks(works) {
+export function displayWorks(works) {
     const gallery = document.getElementById('gallery');
     
     // Vider la galerie avant de la remplir à nouveau
@@ -125,7 +125,7 @@ async function fetchWorks() {
 }
 
 // Fonction pour récupérer les catégories depuis l'API
-async function fetchCategories() {
+export async function fetchCategories() {
     try {
         const response = await fetch(categoriesUrl);
         if (!response.ok) {
@@ -140,5 +140,40 @@ async function fetchCategories() {
     }
 }
 
+//creation des options category dans le button select id category
+
+async function populateCategories() {
+    const categories = await fetchCategories();
+   
+    const selectElement = document.getElementById('category');
+   
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id; // Assurez-vous que l'objet catégorie a une propriété id
+        option.textContent = category.name; // Assurez-vous que l'objet catégorie a une propriété name
+        selectElement.appendChild(option);
+    });
+}
+// Fonction pour vérifier si l'utilisateur est connecté
+function isUserLoggedIn() {
+    const token = localStorage.getItem('token');
+    return token !== null;
+}
+
+// Exemple d'utilisation sur la page d'accueil
+if (isUserLoggedIn()) {
+    console.log('L\'utilisateur est logué.');
+    // Afficher des informations spécifiques aux utilisateurs connectés
+} else {
+    console.log('L\'utilisateur n\'est pas logué.');
+    // Rediriger l'utilisateur vers la page de connexion ou afficher un message invitant à se connecter
+    window.location.href = '/login.html';
+}
+
+// Assurez-vous que le DOM est entièrement chargé avant d'appeler populateCategories
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM entièrement chargé et analysé');
+    populateCategories();
+});
 // Appeler la fonction principale pour démarrer le chargement initial une fois que le DOM est chargé
 document.addEventListener('DOMContentLoaded', loadCategoriesAndWorks);

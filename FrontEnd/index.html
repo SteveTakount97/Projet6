@@ -5,6 +5,7 @@
 	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
@@ -63,10 +64,10 @@
 				  <div class="form-group image-form">
 					  <div class="image-container">
 						  <img src="/assets/icons/picture-svgrep.png" class="img-uploadbutton" id="uploadPlaceholder">
-						  <img id="previewImage" src="" alt="Aperçu de l'image" style="display: none;">
+						  <img id="previewImage" src="" alt="Aperçu de l'image" >
 					  </div>
 					  <button id="uploadbutton" type="button"><p class="text-uploadbutton">  + Ajouter photo </p></button>
-					  <input type="file" id="fileInput" name="image" accept="image/*" >
+					  <input type="file" id="fileInput" name="image" accept="image/*" required>
 				  </div>
 				  <div class="form-group">
 					  <label for="projectName">Titre :</label><br>
@@ -75,10 +76,6 @@
 				  <div class="form-category">
 					  <label for="category">Catégorie :</label><br>
 					  <select id="category" name="category" class="text-titre"  required>
-						  <option>Objets</option>
-						  <option>Appartements</option>
-						  <option>Hotels & restaurants</option>
-						  <option>Tous</option>
 						  
 					  </select>
 				  </div> 
@@ -94,7 +91,7 @@
 			  
 			</div>
 		 </div>
-		 
+
 		<div class="filtre" id="filtre-container"></div>
 		<div class="gallery" id="gallery">
 			

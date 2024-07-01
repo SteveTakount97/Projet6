@@ -42,10 +42,9 @@ loginForm.addEventListener('submit', async function(event) {
                 // Stocker le userId et le token dans localStorage
                 localStorage.setItem('userId', responseData.userId);
                 localStorage.setItem('token', responseData.token);
-
-                // Vérifier le token
-                await checkToken(responseData.token);
-
+                
+               // Rediriger vers index.html ou une autre page appropriée après la connexion
+                  window.location.href = '/index.html';
             } else {
                 // Afficher un message d'erreur générique
                 alert("Email ou mot de passe incorrect.");
@@ -59,29 +58,3 @@ loginForm.addEventListener('submit', async function(event) {
     // Appel de la fonction sendData avec formData en argument
     sendData(formData);
 });
-
-async function checkToken(token) {
-    try {
-        const response = await fetch('http://localhost:5678/api/works', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to verify token');
-        }
-
-        // Token vérifié avec succès
-        alert('Token vérifié avec succès. Vous pouvez créer un work. Vous êtes connecter en tant que administrateur');
-
-        // Rediriger vers index.html
-        window.location.href = '/index.html';
-
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Erreur lors de la vérification du token. Veuillez réessayer plus tard.');
-    }
-}
