@@ -135,9 +135,11 @@ a{
 	padding-left: 20px;
 }
 .btnedit{
-	margin-left: 10px;
-	cursor: pointer;
-	text-decoration: underline;
+	margin-left: 50px;
+    cursor: pointer;
+    text-decoration: underline;
+    position: relative;
+    bottom: 28px;
 }
 /* Styles pour la modale */
 .modal {

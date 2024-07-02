@@ -1,41 +1,73 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si l'utilisateur est connecté
-    if (isUserLoggedIn()) {
-        console.log('L\'utilisateur est logué.');
-
-        // Afficher des informations spécifiques aux utilisateurs connectés
-        const loginLink = document.querySelector('.login');
-        const logoutLink = document.querySelector('.logout');
-        const filterContainer = document.querySelector('.filtre'); // Remplacez '.filtre' par votre sélecteur CSS correct
-
-        if (logoutLink) {
-            logoutLink.classList.remove('hidden');
-        } else {
-            console.error('Logout element not found.');
-        }
-
-        if (loginLink) {
-            loginLink.classList.add('hidden');
-        } else {
-            console.error('Login element not found.');
-        }
-
-        if (filterContainer) {
-            filterContainer.style.display = 'none';
-        } else {
-            console.error('Element with class "filtre" not found.');
-        }
-
-    } else {
-        console.log('L\'utilisateur n\'est pas logué.');
-        // Rediriger l'utilisateur vers la page de connexion
-        window.location.href = '/login.html';
-    }
-});
+// Déclarer les variables globalement pour qu'elles soient accessibles partout
+let loginLink;
+let logoutLink;
+let btnedit;
+let filterContainer;
 
 // Fonction pour vérifier si l'utilisateur est connecté
 function isUserLoggedIn() {
-    // Vérifie si le token d'authentification est présent dans localStorage
-    const token = localStorage.getItem('token');
-    return !!token; // Convertit en booléen (true si le token existe, false sinon)
+    return localStorage.getItem('token') !== null;
 }
+
+// Fonction pour initialiser les éléments lorsque l'utilisateur est connecté
+function initializeElementsLoggedIn() {
+    loginLink = document.querySelector('.login');
+    logoutLink = document.querySelector('.logout');
+    btnedit = document.querySelector('.btn-modifier');
+    filterContainer = document.querySelector('.filtre');
+
+    // Manipuler les éléments lorsqu'un utilisateur est connecté
+    if (logoutLink) {
+        logoutLink.classList.remove('hidden');
+        if (btnedit) btnedit.classList.remove('hidden');
+    } else {
+        console.error('Logout element not found.');
+    }
+
+    if (loginLink) {
+        loginLink.classList.add('hidden');
+    } else {
+        console.error('Login element not found.');
+    }
+
+    if (filterContainer) {
+        filterContainer.style.display = 'none';
+    } else {
+        console.error('Element with class "filtre" not found.');
+    }
+}
+
+// Fonction pour initialiser les éléments lorsque l'utilisateur n'est pas connecté
+function initializeElementsLoggedOut() {
+    loginLink = document.querySelector('.login');
+    logoutLink = document.querySelector('.logout');
+    btnedit = document.querySelector('.btn-modifier');
+    filterContainer = document.querySelector('.filtre');
+
+    // Manipuler les éléments lorsqu'un utilisateur n'est pas connecté
+    if (logoutLink) {
+        logoutLink.classList.add('hidden');
+    }
+
+    if (loginLink) {
+        loginLink.classList.remove('hidden');
+    }
+
+    if (btnedit) {
+        btnedit.classList.add('hidden');
+    }
+
+   
+}
+
+// Vérifier l'état de connexion dès le chargement du script
+document.addEventListener('DOMContentLoaded', function() {
+    if (isUserLoggedIn()) {
+        console.log('L\'utilisateur est logué.');
+        initializeElementsLoggedIn();
+    } else {
+        console.log('L\'utilisateur n\'est pas logué.');
+        initializeElementsLoggedOut();
+    }
+});
+

@@ -18,7 +18,7 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li id="auth-link"><a class="login" href="login.html"> login </a><a class="logout" href="login.html"> logout </a></li>
+			<li id="auth-link"><a class="login" href="login.html"> login </a><a class="logout" id="logout"> logout </a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -36,7 +36,7 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<div class="mesprojets"><h2>Mes Projets</h2><figure><img src="assets/icons/modifier.png" alt="modifier" class="modifier"></figure><figcaption class="btnedit" id="btnedit">modifier</figcaption></div>
+		<div class="mesprojets"><h2>Mes Projets</h2><figure class="btn-modifier"><img src="assets/icons/modifier.png" alt="modifier" class="modifier"><figcaption class="btnedit" id="btnedit">modifier</figcaption></figure></div>
 		  <!-- Modale -->
 		  <div id="myModal" class="modal">
 			<div class="modal-content">
@@ -119,6 +119,7 @@
 		</ul>
 	</nav>
 </footer>
+<script src="logout.js"></script>
 <script type="module" src="adm.js"></script>
 <script type="module" src="script.js" ></script>
 <script src="modale.js"></script>
