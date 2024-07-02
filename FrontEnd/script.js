@@ -160,15 +160,6 @@ function isUserLoggedIn() {
     return token !== null;
 }
 
-// Exemple d'utilisation sur la page d'accueil
-if (isUserLoggedIn()) {
-    console.log('L\'utilisateur est logué.');
-    // Afficher des informations spécifiques aux utilisateurs connectés
-} else {
-    console.log('L\'utilisateur n\'est pas logué.');
-    // Rediriger l'utilisateur vers la page de connexion ou afficher un message invitant à se connecter
-    window.location.href = '/login.html';
-}
 
 // Assurez-vous que le DOM est entièrement chargé avant d'appeler populateCategories
 document.addEventListener('DOMContentLoaded', (event) => {

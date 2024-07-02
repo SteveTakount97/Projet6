@@ -1,66 +1,41 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Vérifier si l'utilisateur est connecté
+    if (isUserLoggedIn()) {
+        console.log('L\'utilisateur est logué.');
 
+        // Afficher des informations spécifiques aux utilisateurs connectés
+        const loginLink = document.querySelector('.login');
+        const logoutLink = document.querySelector('.logout');
+        const filterContainer = document.querySelector('.filtre'); // Remplacez '.filtre' par votre sélecteur CSS correct
 
-// Événement chargement du document
-document.addEventListener("DOMContentLoaded", async function() {
-    const authLink = document.getElementById("auth-link");
-    const token = localStorage.getItem('token'); // Supposons que le token est stocké dans le localStorage
-    // Sélection dynamique de filterContainer
-    const filterContainer = document.querySelector('.filter');
-
-    if (token) {
-        try {
-            const response = await fetch('http://localhost:5678/api/works', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            
-            if (response.ok) {
-                // Utilisateur connecté avec un token valide
-                const loginLink = document.querySelector('.login');
-                const logoutLink = document.querySelector('.logout');
-
-                if (loginLink && logoutLink) {
-                    loginLink.classList.add('hidden');
-                    logoutLink.classList.remove('hidden');
-                } else {
-                    console.error('Login or logout element not found.');
-                }
-            } else {
-                // Token invalide
-                applyDefaultSettings();
-                loginLink.classList.remove('hidden');
-                logoutLink.classList.add('hidden');
-
-                console.log(logoutLink);
-            }
-
-                 
-                 // Sélection dynamique de filterContainer
-                 const filterContainer = document.querySelector('.filtre'); // Remplacez '.filter' par votre sélecteur CSS correct
-
-
-                 if (filterContainer) {
-                     filterContainer.style.display = 'none';
-                     console.log(filterContainer);
-                 } else {
-                     console.error('Element with class "filter" not found.');
-                     // Gérer le cas où filterContainer n'est pas trouvé, par exemple :
-                     // Afficher un message d'erreur, ou ajuster votre logique en conséquence.
-                 }
-                console.log(filterContainer);
-
-           
-        } catch (error) {
-            console.error('Error:', error);
-            authLink.innerHTML = '<a href="login.html">login</a>';
+        if (logoutLink) {
+            logoutLink.classList.remove('hidden');
+        } else {
+            console.error('Logout element not found.');
         }
-    } else {
-        // Pas de token, utilisateur non connecté
-        authLink.innerHTML = '<a href="login.html">login</a>';
-    }
 
+        if (loginLink) {
+            loginLink.classList.add('hidden');
+        } else {
+            console.error('Login element not found.');
+        }
+
+        if (filterContainer) {
+            filterContainer.style.display = 'none';
+        } else {
+            console.error('Element with class "filtre" not found.');
+        }
+
+    } else {
+        console.log('L\'utilisateur n\'est pas logué.');
+        // Rediriger l'utilisateur vers la page de connexion
+        window.location.href = '/login.html';
+    }
 });
+
+// Fonction pour vérifier si l'utilisateur est connecté
+function isUserLoggedIn() {
+    // Vérifie si le token d'authentification est présent dans localStorage
+    const token = localStorage.getItem('token');
+    return !!token; // Convertit en booléen (true si le token existe, false sinon)
+}

@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     img.onload = function () {
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
-                        const maxWidth = 600;
+                        const maxWidth = 700;
                         const scaleFactor = maxWidth / img.width;
                         const height = img.height * scaleFactor;
         
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Fonction pour activer l'écouteur d'événement sur le formulaire d'ajout de photo
-function enableAddPhotoFormListener() {
+  function enableAddPhotoFormListener() {
     const addPhotoForm = document.getElementById('addPhotoForm');
     const previewImage = document.getElementById('previewImage');
     const uploadPlaceholder = document.getElementById('uploadPlaceholder');
@@ -201,7 +201,7 @@ function enableAddPhotoFormListener() {
 
                 // Vérifier si resizedBlob est défini
                 if (resizedBlob) {
-                    formData.append('file', resizedBlob, 'image.png');
+                    formData.append('image', resizedBlob, 'image.png');
                     console.log('Le blob de l\'image a été ajouté au FormData.');
                 } else {
                     alert('Erreur lors de la préparation de l\'image. Veuillez réessayer.');
