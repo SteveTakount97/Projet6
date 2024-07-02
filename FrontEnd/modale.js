@@ -14,15 +14,16 @@ document.addEventListener("DOMContentLoaded", function() {
     let addPictureButton;
     let resizedBlob = null;
 
-    // Vérifier le token au chargement de la page
-    const token = localStorage.getItem('token');
-    if (token) {
-        console.log(token);
-        enableAddPhotoFormListener();
-    } else {
-        alert('Aucun token d\'autorisation trouvé. Veuillez vous connecter.');
-    }
 
+     // Vérifier le token au chargement de la page
+     const token = localStorage.getItem('token');
+     if (token) {
+         console.log(token);
+         enableAddPhotoFormListener();
+     } else {
+         alert('Aucun token d\'autorisation trouvé. Veuillez vous connecter.');
+     }
+     
     // Fonction pour afficher la première page du modal
     function showPage1() {
         page1.classList.add('active');
@@ -68,8 +69,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 imgClone.style.height = '90px';
                 imgClone.style.display = 'block';
 
-                const deleteIcon = document.createElement("i");
-                deleteIcon.classList.add("fas", "fa-trash", "delete-icon");
+                const deleteIcon = document.createElement("img");
+                deleteIcon.src = 'assets/images/delete.png';
+                deleteIcon.classList.add("delete-icon");
                 deleteIcon.setAttribute('data-work-id', figure.dataset.workId);
 
                 // Gestionnaire d'événement pour le clic sur une icône de suppression
@@ -127,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (fileInput) {
         fileInput.addEventListener('change', function (event) {
             const file = fileInput.files[0];
-            const maxSize = 1.2 * 1024 * 1024; // 1.2 MB in bytes
+            const maxSize = 2 * 1024 * 1024; // 2 MB in bytes
         
             if (file) {
                 if (file.size > maxSize) {
@@ -229,14 +231,22 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Afficher une alerte pour indiquer le succès de l'envoi
                 alert('Données envoyées avec succès !');
 
-                // Ajouter visuellement le projet à la galerie sur la page principale
-                addProjectToGallery(projectName, category, imageSrc);
 
                 // Réinitialiser le formulaire et l'aperçu de l'image
                 addPhotoForm.reset();
                 previewImage.src = '';
                 previewImage.style.display = 'none';
                 uploadPlaceholder.style.display = 'block';
+                
+                // Recharger la page index.html
+                window.location.href = 'index.html';
+
+                // Fermer la modale
+                const modal = document.getElementById('myModal');
+                if (modal) {
+                modal.style.display = 'none';
+                 }
+
 
             } catch (error) {
                 console.error('Erreur:', error);
@@ -258,6 +268,8 @@ function handleDeleteIconClick(event) {
 
     const deleteIcon = event.target;
     const workId = deleteIcon.getAttribute('data-work-id');
+    
+    const token = localStorage.getItem('token');
 
     // Trouver l'image correspondante à supprimer
     const imgContainer = deleteIcon.closest('.img-container');

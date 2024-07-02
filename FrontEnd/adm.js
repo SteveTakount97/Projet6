@@ -3,6 +3,7 @@ let loginLink;
 let logoutLink;
 let btnedit;
 let filterContainer;
+const mesProjetsElement = document.querySelector('.mesprojets');
 
 // Fonction pour vérifier si l'utilisateur est connecté
 function isUserLoggedIn() {
@@ -26,6 +27,7 @@ function initializeElementsLoggedIn() {
 
     if (loginLink) {
         loginLink.classList.add('hidden');
+        mesProjetsElement.style.height = '90px';
     } else {
         console.error('Login element not found.');
     }
