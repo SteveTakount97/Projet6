@@ -39,9 +39,9 @@ function initFilterButtons(categories, filterContainer) {
         });
     });
 
-    const h2Element = document.querySelector('#portfolio h2');
-    if (h2Element) {
-        h2Element.insertAdjacentElement('afterend', filterContainer);
+    const figureElement = document.querySelector('#portfolio .mesprojets figure');
+    if (figureElement) {
+        figureElement.insertAdjacentElement('afterend', filterContainer);
     } else {
         console.error('Aucun élément <h2> trouvé dans la section avec l\'ID "portfolio".');
     }

@@ -89,8 +89,9 @@ h2{
 	grid-template-columns: 100px 100px 157px 230px;
 	justify-content: center;
 	gap: 15px;
-	margin-bottom: 50px;
 	cursor: pointer;
+	position: absolute;
+    top: 84px;
 }
 .btn-filtre{
 	font-family: 'Syne';
@@ -126,6 +127,8 @@ a{
 .mesprojets{
 	display: flex;
 	justify-content: center;
+	position: relative;
+    height: 200px;
 	
 }
 .modifier, .btnedit{
