@@ -13,17 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const uploadPlaceholder = document.getElementById('uploadPlaceholder');
     let addPictureButton;
     let resizedBlob = null;
+    const token = localStorage.getItem('token');
 
-
-     // Vérifier le token au chargement de la page
-     const token = localStorage.getItem('token');
-     if (token) {
-         console.log(token);
-         enableAddPhotoFormListener();
-     } else {
-         alert('Aucun token d\'autorisation trouvé. Veuillez vous connecter.');
-     }
-     
     // Fonction pour afficher la première page du modal
     function showPage1() {
         page1.classList.add('active');
@@ -180,132 +171,129 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Fonction pour activer l'écouteur d'événement sur le formulaire d'ajout de photo
-  function enableAddPhotoFormListener() {
-    const addPhotoForm = document.getElementById('addPhotoForm');
-    const previewImage = document.getElementById('previewImage');
-    const uploadPlaceholder = document.getElementById('uploadPlaceholder');
-    
+    function enableAddPhotoFormListener() {
+        const addPhotoForm = document.getElementById('addPhotoForm');
+        const previewImage = document.getElementById('previewImage');
+        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
 
-    if (addPhotoForm) {
-        addPhotoForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Empêcher le comportement par défaut du formulaire
+        if (addPhotoForm) {
+            addPhotoForm.addEventListener('submit', async (event) => {
+                event.preventDefault(); // Empêcher le comportement par défaut du formulaire
 
-            // Récupérer les valeurs du formulaire
-            const projectName = document.getElementById('projectName').value;
-            const category = document.getElementById('category').value;
-            const imageSrc = previewImage.src; // Assurez-vous que previewImage est correctement défini
+                // Récupérer les valeurs du formulaire
+                const projectName = document.getElementById('projectName').value;
+                const category = document.getElementById('category').value;
+                const imageSrc = previewImage.src; // Assurez-vous que previewImage est correctement défini
 
-            try {
-                // Créer un FormData pour envoyer les données
-                const formData = new FormData();
-                formData.append('title', projectName);
-                formData.append('category', category);
+                try {
+                    // Créer un FormData pour envoyer les données
+                    const formData = new FormData();
+                    formData.append('title', projectName);
+                    formData.append('category', category);
 
-                // Vérifier si resizedBlob est défini
-                if (resizedBlob) {
-                    formData.append('image', resizedBlob, 'image.png');
-                    console.log('Le blob de l\'image a été ajouté au FormData.');
-                } else {
-                    alert('Erreur lors de la préparation de l\'image. Veuillez réessayer.');
-                    console.error('resizedBlob n\'est pas défini.');
-                    return;
+                    // Vérifier si resizedBlob est défini
+                    if (resizedBlob) {
+                        formData.append('image', resizedBlob, 'image.png');
+                        console.log('Le blob de l\'image a été ajouté au FormData.');
+                    } else {
+                        alert('Erreur lors de la préparation de l\'image. Veuillez réessayer.');
+                        console.error('resizedBlob n\'est pas défini.');
+                        return;
+                    }
+
+                    // Envoyer la requête POST pour ajouter le projet
+                    const response = await fetch('http://localhost:5678/api/works', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Accept': 'application/json'
+                        },
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Erreur lors de l'ajout du work: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    console.log('Succès:', data);
+
+                    // Afficher une alerte pour indiquer le succès de l'envoi
+                    alert('Données envoyées avec succès !');
+
+                    // Réinitialiser le formulaire et l'aperçu de l'image
+                    addPhotoForm.reset();
+                    previewImage.src = '';
+                    previewImage.style.display = 'none';
+                    uploadPlaceholder.style.display = 'block';
+                    
+                    // Recharger la page index.html
+                    window.location.href = 'index.html';
+
+                    // Fermer la modale
+                    const modal = document.getElementById('myModal');
+                    if (modal) {
+                        modal.style.display = 'none';
+                    }
+
+                } catch (error) {
+                    console.error('Erreur:', error);
+                    alert('Erreur lors de l\'ajout du work.');
+
+                    // Réinitialiser le formulaire en cas d'erreur
+                    addPhotoForm.reset();
+                    previewImage.src = '';
+                    previewImage.style.display = 'none';
+                    uploadPlaceholder.style.display = 'block';
                 }
-
-                // Envoyer la requête POST pour ajouter le projet
-                const response = await fetch('http://localhost:5678/api/works', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Accept': 'application/json'
-                    },
-                    body: formData
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Erreur lors de l'ajout du work: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log('Succès:', data);
-
-                // Afficher une alerte pour indiquer le succès de l'envoi
-                alert('Données envoyées avec succès !');
-
-
-                // Réinitialiser le formulaire et l'aperçu de l'image
-                addPhotoForm.reset();
-                previewImage.src = '';
-                previewImage.style.display = 'none';
-                uploadPlaceholder.style.display = 'block';
-                
-                // Recharger la page index.html
-                window.location.href = 'index.html';
-
-                // Fermer la modale
-                const modal = document.getElementById('myModal');
-                if (modal) {
-                modal.style.display = 'none';
-                 }
-
-
-            } catch (error) {
-                console.error('Erreur:', error);
-                alert('Erreur lors de l\'ajout du work.');
-
-                // Réinitialiser le formulaire en cas d'erreur
-                addPhotoForm.reset();
-                previewImage.src = '';
-                previewImage.style.display = 'none';
-                uploadPlaceholder.style.display = 'block';
-            }
-        });
-    }
-}
-
-
-function handleDeleteIconClick(event) {
-    event.stopPropagation(); // Empêcher la propagation du clic sur la figure parente
-
-    const deleteIcon = event.target;
-    const workId = deleteIcon.getAttribute('data-work-id');
-    
-    const token = localStorage.getItem('token');
-
-    // Trouver l'image correspondante à supprimer
-    const imgContainer = deleteIcon.closest('.img-container');
-    if (!imgContainer) {
-        console.error('Container de l\'image non trouvé.');
-        return;
-    }
-
-    // Vérifier le token avant d'envoyer la requête DELETE
-    if (token) {
-        const confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet élément ?");
-        if (confirmation) {
-            // Envoyer la requête DELETE
-            fetch(`http://localhost:5678/api/works/${workId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Erreur lors de la suppression du work: ${response.status}`);
-                }
-                // Supprimer visuellement la figure de la galerie
-                imgContainer.remove(); // Supprimer le conteneur de l'image
-                 // Recharger la page
-                  window.location.reload();
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                alert('Erreur lors de la suppression du work.');
             });
         }
-    } else {
-        alert('Erreur: Token d\'autorisation non valide.');
     }
-}
 
+    enableAddPhotoFormListener();
+
+    function handleDeleteIconClick(event) {
+        event.stopPropagation(); // Empêcher la propagation du clic sur la figure parente
+
+        const deleteIcon = event.target;
+        const workId = deleteIcon.getAttribute('data-work-id');
+        
+        const token = localStorage.getItem('token');
+
+        // Trouver l'image correspondante à supprimer
+        const imgContainer = deleteIcon.closest('.img-container');
+        if (!imgContainer) {
+            console.error('Container de l\'image non trouvé.');
+            return;
+        }
+
+        // Vérifier le token avant d'envoyer la requête DELETE
+        if (token) {
+            const confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet élément ?");
+            if (confirmation) {
+                // Envoyer la requête DELETE
+                fetch(`http://localhost:5678/api/works/${workId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erreur lors de la suppression du work: ${response.status}`);
+                    }
+                    // Supprimer visuellement la figure de la galerie
+                    imgContainer.remove(); // Supprimer le conteneur de l'image
+                     // Recharger la page
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Erreur lors de la suppression du work.');
+                });
+            }
+        } else {
+            alert('Erreur: Token d\'autorisation non valide.');
+        }
+    }
 });
