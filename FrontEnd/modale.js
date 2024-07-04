@@ -270,6 +270,12 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('Container de l\'image non trouvé.');
             return;
         }
+        // Trouver l'élément correspondant dans la galerie principale
+        const galleryFigure = gallery.querySelector(`figure[data-work-id='${workId}']`);
+        if (!galleryFigure) {
+        console.error('Figure dans la galerie non trouvée.');
+        return;
+          }
 
         // Vérifier le token avant d'envoyer la requête DELETE
         if (token) {
@@ -288,8 +294,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                     // Supprimer visuellement la figure de la galerie
                     imgContainer.remove(); // Supprimer le conteneur de l'image
-                     // Recharger la page
-                    window.location.reload();
+                  
+                    galleryFigure.remove(); // Supprimer la figure de la galerie principale
+                   
                 })
                 .catch(error => {
                     console.error('Erreur:', error);
