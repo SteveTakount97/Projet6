@@ -51,12 +51,6 @@ function initFilterButtons(categories, filterContainer) {
 export function displayWorks(works) {
     const gallery = document.getElementById('gallery');
     
-    // Vider la galerie avant de la remplir à nouveau
-    gallery.innerHTML = '';
-    
-    // Vider la liste globale des figures avant de la remplir à nouveau
-    figures = [];
-
     // Ajouter dynamiquement les figures et leurs enfants à la galerie
     works.forEach((work) => {
         // Créer la balise figure
@@ -80,8 +74,7 @@ export function displayWorks(works) {
         // Ajouter figure à la galerie
         gallery.appendChild(figure);
 
-        // Ajouter la figure à la liste globale
-        figures.push(figure);
+      
     });
 }
 
@@ -108,7 +101,7 @@ function createFilterButton(category) {
 }
 
 // Fonction pour récupérer les données des travaux depuis l'API
-async function fetchWorks() {
+export async function fetchWorks() {
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {

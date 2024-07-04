@@ -1,3 +1,5 @@
+import {fetchWorks, displayWorks} from "./script.js";
+
 document.addEventListener("DOMContentLoaded", function() {
     const modal = document.getElementById("myModal");
     const gallery = document.querySelector('.gallery');
@@ -227,8 +229,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     previewImage.style.display = 'none';
                     uploadPlaceholder.style.display = 'block';
                     
-                    // Recharger la page index.html
-                    window.location.href = 'index.html';
+                    const works = await fetchWorks ();
+                    console.log(works);
+
+                    displayWorks (works);
 
                     // Fermer la modale
                     const modal = document.getElementById('myModal');
