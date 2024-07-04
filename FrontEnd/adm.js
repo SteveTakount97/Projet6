@@ -3,6 +3,7 @@ let loginLink;
 let logoutLink;
 let btnedit;
 let filterContainer;
+var topBar = document.querySelector(".top-bar");
 const mesProjetsElement = document.querySelector('.mesprojets');
 
 // Fonction pour vérifier si l'utilisateur est connecté
@@ -16,11 +17,15 @@ function initializeElementsLoggedIn() {
     logoutLink = document.querySelector('.logout');
     btnedit = document.querySelector('.btn-modifier');
     filterContainer = document.querySelector('.filtre');
+ 
 
     // Manipuler les éléments lorsqu'un utilisateur est connecté
     if (logoutLink) {
         logoutLink.classList.remove('hidden');
         if (btnedit) btnedit.classList.remove('hidden');
+        if (topBar)
+            topBar.style.display = "block";
+     
     } else {
         console.error('Logout element not found.');
     }
