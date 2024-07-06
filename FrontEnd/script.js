@@ -23,21 +23,21 @@ async function loadCategoriesAndWorks() {
 
 // Fonction pour initialiser les boutons de filtre avec les catégories récupérées
 function initFilterButtons(categories, filterContainer) {
-    const uniqueCategories = new Set(categories.map(category => category.name));
-
-    const allButton = createFilterButton('Tous');
+    // Ajout du bouton "Tous"
+    const allButton = createFilterButton({ id: 'all', name: 'Tous' });
     filterContainer.appendChild(allButton);
     allButton.addEventListener('click', function() {
-        displayWorksByCategory('Tous');
+        displayWorksByCategory('all');
     });
 
-    uniqueCategories.forEach(category => {
+    categories.forEach(category => {
         const button = createFilterButton(category);
         filterContainer.appendChild(button);
         button.addEventListener('click', function() {
-            displayWorksByCategory(category);
+            displayWorksByCategory(category.id);
         });
     });
+
 
     const figureElement = document.querySelector('#portfolio .mesprojets figure');
     if (figureElement) {
@@ -50,13 +50,18 @@ function initFilterButtons(categories, filterContainer) {
 // Fonction pour afficher les travaux dans la galerie
 export function displayWorks(works) {
     const gallery = document.getElementById('gallery');
-    
+    //vide la gallery avant de la remplir de nouveau
+    gallery.innerHTML = "";
+     
+    //vide la liste des figures globales avant de la remplir
+    figures = [];
+
     // Ajouter dynamiquement les figures et leurs enfants à la galerie
     works.forEach((work) => {
         // Créer la balise figure
         const figure = document.createElement('figure');
         figure.dataset.workId = work.id;
-        figure.dataset.category = work.category.name;
+        figure.dataset.category = work.category.id;
 
         // Créer la balise img
         const img = document.createElement('img');
@@ -73,17 +78,20 @@ export function displayWorks(works) {
 
         // Ajouter figure à la galerie
         gallery.appendChild(figure);
-
+        
+        //ajouter la figure à la liste globale
+        figures.push(figure);
       
     });
 }
 
 // Fonction pour afficher les travaux filtrés dans la galerie en fonction de la catégorie sélectionnée
-function displayWorksByCategory(category) {
+function displayWorksByCategory(categoryID) {
     figures.forEach(figure => {
-        const figureCategory = figure.dataset.category;
+        const figureCategory = parseInt(figure.dataset.category); // Convertir en nombre pour comparaison
+        
 
-        if (category === 'Tous' || figureCategory === category) {
+        if (categoryID === 'all' || figureCategory === categoryID) {
             figure.classList.remove('hidden');
         } else {
             figure.classList.add('hidden');
@@ -93,9 +101,11 @@ function displayWorksByCategory(category) {
 
 // Fonction pour créer un bouton de filtre avec le texte spécifié
 function createFilterButton(category) {
+    
     const button = document.createElement('button');
     button.classList.add('btn-filtre');
-    button.textContent = category;
+    button.textContent = category.name;
+    button.dataset.category = category.id;
     
     return button;
 }

@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (fileInput) {
         fileInput.addEventListener('change', function (event) {
             const file = fileInput.files[0];
-            const maxSize = 2 * 1024 * 1024; // 2 MB in bytes
+            const maxSize = 4 * 1024 * 1024; // 4 MB en octets
         
             if (file) {
                 if (file.size > maxSize) {
@@ -155,15 +155,22 @@ document.addEventListener("DOMContentLoaded", function() {
                                 previewImage.src = resizedImageSrc;
                                 previewImage.style.display = 'block';
                                 uploadPlaceholder.style.display = 'none';
+                                fileInput.style.display = 'none';
         
                                 // Set object-fit: cover on the preview image
+                                // Set styles to make the image fit the block width
+                                 previewImage.style.height = '160px';
+                                 previewImage.style.width = '176px';
+                                 previewImage.style.position = 'absolute';
+                                 previewImage.style.marginLeft ='-40px';
+                                 previewImage.style.top = '-19px';
                                 previewImage.style.objectFit = 'cover';
         
                                 console.log('Image redimensionnée et convertie en blob avec succès.');
                             } else {
                                 console.error('Erreur lors de la conversion de l\'image en blob.');
                             }
-                        }, 'image/png', 0.7);
+                        }, file.type === 'image/jpeg' ? 'image/jpeg' : 'image/png', 0.7);
                     };
                     img.src = e.target.result;
                 };

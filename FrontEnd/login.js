@@ -29,7 +29,7 @@ loginForm.addEventListener('submit', async function(event) {
             const response = await fetch(url, options);
             console.log(response);
             if (!response.ok) {
-                throw new Error(`Une erreur s'est produite avec le statut : ${response.status}`);
+                alert("Email ou mot de passe incorrect.");
             }
             const responseData = await response.json();
             console.log("Réponse du serveur :", responseData);
@@ -45,10 +45,7 @@ loginForm.addEventListener('submit', async function(event) {
                 
                // Rediriger vers index.html ou une autre page appropriée après la connexion
                   window.location.href = '/index.html';
-            } else {
-                // Afficher un message d'erreur générique
-                alert("Email ou mot de passe incorrect.");
-            }
+            } 
 
         } catch (error) {
             alert(error.message); // Afficher l'erreur en cas de problème

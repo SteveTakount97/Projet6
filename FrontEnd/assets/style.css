@@ -261,9 +261,10 @@ a{
 }
 .containerform{
 	display: grid;
-	grid-template-rows: 150px 100px 100px;
+	grid-template-rows: 160px 100px 100px;
     border-bottom: #B3B3B3 2px solid;
-    padding-bottom: 80px;
+    padding-bottom: 50px;
+	gap: 15px;
 }
 .addprojet{
 	margin-top: 20px;
@@ -302,12 +303,13 @@ a{
     width: 173px;
     height: 36px;
 	color: #1D6154;
+	border: none;
 	background-color: #CBD6DC;
 	border-radius: 30px;
 }
 .text-uploadbutton{
 	padding-left: 35px;
-    padding-top: 5px;
+    padding-top: 9px;
 }
 .img-uploadbutton{
 	display: flex;
@@ -319,8 +321,14 @@ a{
     height: 50px; /* Ajustez la largeur et la hauteur selon vos besoins */
 	display: flex;
     margin: auto;
-    margin-bottom: 30px;
-    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.tex-modale{
+	padding-top: 10px;
+	text-align: center;
+	font-size: 11px;
+	font-weight: 400;
 }
 
 .image-container img {
